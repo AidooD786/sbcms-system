@@ -1,0 +1,842 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SBCMS - Starr FM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Authentication Styles */
+        .auth-page {
+            background: linear-gradient(135deg, #0c1a2d 0%, #1a2b3c 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .auth-header .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .auth-header .back-home:hover {
+            color: white;
+        }
+
+        .auth-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .auth-logo i {
+            font-size: 3rem;
+            color: #4f46e5;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-logo h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-header p {
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        .auth-card {
+            background: rgba(16, 24, 39, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .auth-tab {
+            background: none;
+            border: none;
+            padding: 12px 24px;
+            color: #94a3b8;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            background: rgba(79, 70, 229, 0.1);
+            color: white;
+            border-bottom: 2px solid #4f46e5;
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .input-with-icon input,
+        .input-with-icon select {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-with-icon input:focus,
+        .input-with-icon select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        .input-with-icon .show-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .password-strength {
+            margin-top: 10px;
+        }
+
+        .strength-meter {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+
+        .strength-bar {
+            height: 100%;
+            width: 0%;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .strength-bar.weak { background: #ef4444; }
+        .strength-bar.fair { background: #f59e0b; }
+        .strength-bar.good { background: #3b82f6; }
+        .strength-bar.strong { background: #10b981; }
+        .strength-bar.very-strong { background: #059669; }
+
+        .strength-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+
+        .strength-label {
+            font-size: 0.8rem;
+            color: #94a3b8;
+            transition: all 0.3s ease;
+        }
+
+        .strength-label.active {
+            color: white;
+            font-weight: 600;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #4f46e5;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            color: #cbd5e1;
+        }
+
+        .auth-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .auth-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .auth-links a:hover {
+            color: #4f46e5;
+        }
+
+        .mfa-instructions {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .mfa-instructions i {
+            font-size: 3rem;
+            color: #4f46e5;
+            margin-bottom: 15px;
+        }
+
+        .mfa-input-container {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        #mfaCode {
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+            text-align: center;
+            padding: 15px;
+            flex: 1;
+        }
+
+        .mfa-timer {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #f59e0b;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .mfa-resend {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .security-notice {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 10px;
+            border-left: 4px solid #4f46e5;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .security-notice i {
+            color: #4f46e5;
+            font-size: 1.2rem;
+        }
+
+        .auth-footer {
+            margin-top: 40px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .auth-footer a {
+            color: #cbd5e1;
+            text-decoration: none;
+        }
+
+        .auth-footer a:hover {
+            color: #4f46e5;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 1);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 25px;
+            }
+            
+            .auth-logo h1 {
+                font-size: 2rem;
+            }
+            
+            .mfa-input-container {
+                flex-direction: column;
+            }
+            
+            .auth-links {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body class="auth-page">
+    <div class="auth-container">
+        <div class="auth-header">
+            <a href="index.html" class="back-home">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <div class="auth-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>SBCMS Login</h1>
+            </div>
+            <p>Secure Broadcast Cybersecurity Management System</p>
+        </div>
+
+        <div class="auth-card">
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="loginTab">Login</button>
+                <button class="auth-tab" id="mfaTab">MFA Verification</button>
+            </div>
+
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" name="email" placeholder="user@starrfm.com" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                        <button type="button" class="show-password" id="showPasswordBtn">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-meter">
+                            <div class="strength-bar" id="passwordStrength"></div>
+                        </div>
+                        <small>Password must be at least 8 characters with uppercase, lowercase, number and special character</small>
+                    </div>
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember me on this device</label>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-sign-in-alt"></i> Login to Dashboard
+                    </button>
+                </div>
+
+                <div class="auth-links">
+                    <a href="signup.html">Don't have an account? Sign up</a>
+                    <a href="#" id="forgotPasswordLink">Forgot password?</a>
+                </div>
+            </form>
+
+            <form id="mfaForm" class="auth-form">
+                <div class="mfa-instructions">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Multi-Factor Authentication</h3>
+                    <p>For enhanced security, please enter the 6-digit verification code sent to your registered email.</p>
+                </div>
+
+                <div class="form-group">
+                    <label for="mfaCode">Verification Code</label>
+                    <div class="mfa-input-container">
+                        <input type="text" id="mfaCode" name="mfaCode" maxlength="6" placeholder="000000" required>
+                        <div class="mfa-timer" id="mfaTimer">
+                            <i class="fas fa-clock"></i> <span id="timer">02:00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-check-circle"></i> Verify & Continue
+                    </button>
+                </div>
+
+                <div class="mfa-resend">
+                    <p>Didn't receive the code? <a href="#" id="resendMfaBtn">Resend code</a></p>
+                </div>
+            </form>
+
+            <div class="security-notice">
+                <i class="fas fa-info-circle"></i>
+                <p>This system follows NIST password guidelines and implements ISO 27001 security standards.</p>
+            </div>
+        </div>
+
+        <div class="auth-footer">
+            <p>By logging in, you agree to our <a href="#">Security Policy</a> and <a href="#">Terms of Use</a></p>
+            <p>&copy; 2026 SBCMS - Starr FM Cybersecurity System</p>
+        </div>
+    </div>
+
+    <script>
+        // User Manager Class
+        class UserManager {
+            constructor() {
+                this.USERS_KEY = 'sbcms_users';
+                this.loadUsers();
+            }
+
+            loadUsers() {
+                const usersData = localStorage.getItem(this.USERS_KEY);
+                if (usersData) {
+                    try {
+                        this.users = JSON.parse(usersData);
+                    } catch (error) {
+                        console.error('Error loading users:', error);
+                        this.users = [];
+                        this.createDefaultAdmin();
+                    }
+                } else {
+                    this.users = [];
+                    this.createDefaultAdmin();
+                }
+            }
+
+            createDefaultAdmin() {
+                const adminUser = {
+                    id: 'admin001',
+                    email: 'admin@starrfm.com',
+                    password: this.hashPassword('Admin@123'),
+                    name: 'System Administrator',
+                    department: 'security',
+                    role: 'admin',
+                    createdAt: new Date().toISOString(),
+                    lastLogin: null,
+                    mfaEnabled: true,
+                    isActive: true,
+                    permissions: ['all']
+                };
+                
+                this.users.push(adminUser);
+                this.saveUsers();
+            }
+
+            saveUsers() {
+                localStorage.setItem(this.USERS_KEY, JSON.stringify(this.users));
+            }
+
+            hashPassword(password) {
+                return btoa(password + 'sbcms_salt_2026');
+            }
+
+            validatePasswordStrength(password) {
+                const requirements = {
+                    length: password.length >= 8,
+                    uppercase: /[A-Z]/.test(password),
+                    lowercase: /[a-z]/.test(password),
+                    number: /\d/.test(password),
+                    special: /[!@#$%^&*]/.test(password)
+                };
+                
+                const passed = Object.values(requirements).filter(Boolean).length;
+                let strength = 'Weak';
+                
+                if (passed === 5) strength = 'Very Strong';
+                else if (passed >= 4) strength = 'Strong';
+                else if (passed >= 3) strength = 'Good';
+                else if (passed >= 2) strength = 'Fair';
+                
+                return {
+                    isValid: passed >= 3,
+                    strength: strength,
+                    requirements: requirements
+                };
+            }
+
+            loginUser(email, password) {
+                const user = this.users.find(u => 
+                    u.email === email && 
+                    u.isActive === true
+                );
+
+                if (!user) {
+                    return {
+                        success: false,
+                        message: 'Invalid email or password'
+                    };
+                }
+
+                const hashedInput = this.hashPassword(password);
+                if (user.password !== hashedInput) {
+                    return {
+                        success: false,
+                        message: 'Invalid email or password'
+                    };
+                }
+
+                user.lastLogin = new Date().toISOString();
+                this.saveUsers();
+
+                const userForSession = { ...user };
+                delete userForSession.password;
+
+                return {
+                    success: true,
+                    message: 'Login successful',
+                    user: userForSession
+                };
+            }
+        }
+
+        // Authentication Manager Class
+        class AuthManager {
+            constructor() {
+                this.currentUser = null;
+                this.isAuthenticated = false;
+                this.STORAGE_KEY = 'sbcms_auth_data';
+                this.SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+            }
+
+            saveSession(user, rememberMe = false) {
+                const expiry = new Date().getTime() + this.SESSION_TIMEOUT;
+                const sessionData = {
+                    user: user,
+                    expiry: expiry,
+                    timestamp: new Date().toISOString()
+                };
+                
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(sessionData));
+                this.currentUser = user;
+                this.isAuthenticated = true;
+            }
+        }
+
+        // Create global instances
+        window.userManager = new UserManager();
+        window.authManager = new AuthManager();
+
+        // Login functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const mfaForm = document.getElementById('mfaForm');
+            const loginTab = document.getElementById('loginTab');
+            const mfaTab = document.getElementById('mfaTab');
+            const showPasswordBtn = document.getElementById('showPasswordBtn');
+            const passwordInput = document.getElementById('password');
+            const mfaCodeInput = document.getElementById('mfaCode');
+            const resendMfaBtn = document.getElementById('resendMfaBtn');
+            const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+            
+            let loginAttempt = null;
+            let mfaTimer = null;
+            let mfaTimeLeft = 120; // 2 minutes in seconds
+
+            // Switch between login and MFA tabs
+            loginTab.addEventListener('click', () => showForm('login'));
+            mfaTab.addEventListener('click', () => showForm('mfa'));
+
+            function showForm(form) {
+                if (form === 'login') {
+                    loginForm.classList.add('active');
+                    mfaForm.classList.remove('active');
+                    loginTab.classList.add('active');
+                    mfaTab.classList.remove('active');
+                } else {
+                    loginForm.classList.remove('active');
+                    mfaForm.classList.add('active');
+                    loginTab.classList.remove('active');
+                    mfaTab.classList.add('active');
+                }
+            }
+
+            // Show/hide password
+            showPasswordBtn.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+
+            // Password strength indicator
+            passwordInput.addEventListener('input', function() {
+                const password = this.value;
+                const validation = window.userManager.validatePasswordStrength(password);
+                
+                const strengthBar = document.getElementById('passwordStrength');
+                let width = 0;
+                
+                switch(validation.strength) {
+                    case 'Weak': width = 20; break;
+                    case 'Fair': width = 40; break;
+                    case 'Good': width = 60; break;
+                    case 'Strong': width = 80; break;
+                    case 'Very Strong': width = 100; break;
+                }
+                
+                strengthBar.style.width = width + '%';
+                strengthBar.className = 'strength-bar ' + validation.strength.toLowerCase().replace(' ', '-');
+            });
+
+            // Login form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const rememberMe = document.getElementById('remember').checked;
+                
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+                submitBtn.disabled = true;
+                
+                // Attempt login
+                const result = window.userManager.loginUser(email, password);
+                
+                if (result.success) {
+                    loginAttempt = result.user;
+                    
+                    // Check if MFA is enabled
+                    if (result.user.mfaEnabled) {
+                        // Show MFA form
+                        showForm('mfa');
+                        startMfaTimer();
+                        
+                        // Simulate sending MFA code
+                        const mfaCode = Math.floor(100000 + Math.random() * 900000);
+                        alert(`For demo purposes, your MFA code is: ${mfaCode}\n\nIn a real application, this would be sent to your email.`);
+                        
+                        // Store the code for verification
+                        sessionStorage.setItem('mfa_code', mfaCode.toString());
+                    } else {
+                        // No MFA required, proceed to dashboard
+                        completeLogin(result.user, rememberMe);
+                    }
+                } else {
+                    alert(result.message);
+                }
+                
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            });
+
+            // MFA timer
+            function startMfaTimer() {
+                mfaTimeLeft = 120;
+                updateMfaTimer();
+                
+                mfaTimer = setInterval(() => {
+                    mfaTimeLeft--;
+                    updateMfaTimer();
+                    
+                    if (mfaTimeLeft <= 0) {
+                        clearInterval(mfaTimer);
+                        alert('MFA code has expired. Please try logging in again.');
+                        showForm('login');
+                    }
+                }, 1000);
+            }
+
+            function updateMfaTimer() {
+                const minutes = Math.floor(mfaTimeLeft / 60);
+                const seconds = mfaTimeLeft % 60;
+                document.getElementById('timer').textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+
+            // Resend MFA code
+            resendMfaBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (loginAttempt) {
+                    // Reset timer
+                    clearInterval(mfaTimer);
+                    startMfaTimer();
+                    
+                    // Generate new code
+                    const mfaCode = Math.floor(100000 + Math.random() * 900000);
+                    alert(`New MFA code sent: ${mfaCode}\n\nIn a real application, this would be sent to your email.`);
+                    sessionStorage.setItem('mfa_code', mfaCode.toString());
+                }
+            });
+
+            // MFA form submission
+            mfaForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const enteredCode = mfaCodeInput.value.trim();
+                const storedCode = sessionStorage.getItem('mfa_code');
+                
+                if (enteredCode === storedCode) {
+                    clearInterval(mfaTimer);
+                    completeLogin(loginAttempt, document.getElementById('remember').checked);
+                    sessionStorage.removeItem('mfa_code');
+                } else {
+                    alert('Invalid verification code. Please try again.');
+                }
+            });
+
+            // Complete login process
+            function completeLogin(user, rememberMe) {
+                // Save session
+                window.authManager.saveSession(user, rememberMe);
+                
+                // Show success message
+                alert(`Welcome ${user.name}! Redirecting to dashboard...`);
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+            }
+
+            // Forgot password
+            forgotPasswordLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Password reset functionality would be implemented here. In a real application, this would send a reset link to your email.');
+            });
+
+            // Check if already logged in
+            const authData = localStorage.getItem('sbcms_auth_data');
+            if (authData) {
+                try {
+                    const data = JSON.parse(authData);
+                    const now = new Date().getTime();
+                    
+                    if (data.expiry && now < data.expiry) {
+                        // User is already logged in, redirect to dashboard
+                        window.location.href = 'dashboard.html';
+                    }
+                } catch (error) {
+                    console.error('Error checking existing session:', error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

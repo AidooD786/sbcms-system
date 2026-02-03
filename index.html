@@ -1,0 +1,856 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Broadcast Cybersecurity Management System | Starr FM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0c1a2d 0%, #1a2b3c 100%);
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #4f46e5;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            font-family: 'Roboto Mono', monospace;
+            margin-top: 5px;
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .main-nav a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .main-nav a:hover {
+            color: #4f46e5;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(30, 41, 59, 1);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-large {
+            padding: 15px 30px;
+            font-size: 1.1rem;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        .hero-content h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .cyber-visual {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .server-node {
+            position: absolute;
+            background: rgba(16, 24, 39, 0.8);
+            border: 2px solid rgba(79, 70, 229, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .server-node:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+        }
+
+        .server-node i {
+            font-size: 2rem;
+            color: #4f46e5;
+        }
+
+        .server-node.secure i {
+            color: #10b981;
+        }
+
+        .server-node span {
+            font-size: 0.9rem;
+            text-align: center;
+            color: #cbd5e1;
+        }
+
+        .server-node:nth-child(1) {
+            left: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .server-node:nth-child(2) {
+            left: 50%;
+            top: 20%;
+            transform: translateX(-50%);
+        }
+
+        .server-node:nth-child(3) {
+            right: 20%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .network-line {
+            position: absolute;
+            background: linear-gradient(90deg, #4f46e5, transparent);
+            height: 2px;
+        }
+
+        .network-line:nth-child(4) {
+            left: calc(20% + 120px);
+            top: 50%;
+            width: 10%;
+        }
+
+        .network-line:nth-child(5) {
+            left: calc(50% - 5%);
+            top: calc(20% + 80px);
+            width: 10%;
+            transform: rotate(45deg);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(16, 24, 39, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #4f46e5;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .feature-card p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        /* About Section */
+        .about {
+            padding: 80px 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .about-text p {
+            color: #94a3b8;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .about-text ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+
+        .about-text li {
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .about-text li::before {
+            content: '•';
+            color: #4f46e5;
+            font-size: 1.5rem;
+        }
+
+        .tech-stack h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .tech-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-item {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .tech-item i {
+            color: #4f46e5;
+        }
+
+        .report-card {
+            background: rgba(16, 24, 39, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .report-header h4 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .report-header h4 i {
+            color: #4f46e5;
+        }
+
+        .report-badge {
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .report-body p {
+            color: #cbd5e1;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .report-body p strong {
+            color: white;
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(16, 24, 39, 0.9);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo i {
+            font-size: 2rem;
+            color: #4f46e5;
+        }
+
+        .footer-logo h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-section p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-section li {
+            color: #94a3b8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section li i {
+            color: #4f46e5;
+            width: 20px;
+        }
+
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #4f46e5;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .server-node {
+                width: 100px;
+                padding: 15px;
+            }
+            
+            .server-node i {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="main-header">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>SBCMS</h1>
+                </div>
+                <p class="subtitle">Secure Broadcast Cybersecurity Management System</p>
+            </div>
+            <nav class="main-nav">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="login.html" class="btn btn-outline">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </nav>
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="hero-content">
+                    <h2>Protecting Broadcast Media from Cyber Threats</h2>
+                    <p class="hero-description">A comprehensive cybersecurity management system designed specifically for broadcast media organizations like Starr FM to defend against ransomware, signal hijacking, and data breaches.</p>
+                    <div class="hero-buttons">
+                        <a href="signup.html" class="btn btn-primary btn-large">Get Started <i class="fas fa-arrow-right"></i></a>
+                        <a href="#features" class="btn btn-secondary btn-large">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="cyber-visual">
+                        <div class="server-node">
+                            <i class="fas fa-server"></i>
+                            <span>Broadcast Server</span>
+                        </div>
+                        <div class="network-line"></div>
+                        <div class="server-node">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <span>Transmission</span>
+                        </div>
+                        <div class="network-line"></div>
+                        <div class="server-node secure">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>SBCMS Protection</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="features">
+                <h2 class="section-title">System Features</h2>
+                <p class="section-subtitle">Designed based on the field trip analysis of Starr FM's requirements</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <h3>Authentication & Authorization</h3>
+                        <p>Multi-factor authentication and role-based access control for broadcast systems.</p>
+                        <ul class="feature-list">
+                            <li>MFA Implementation</li>
+                            <li>Role-based permissions</li>
+                            <li>Session management</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-binoculars"></i>
+                        </div>
+                        <h3>Real-time Security Monitoring</h3>
+                        <p>Continuous monitoring of broadcast systems with threat detection and alerting.</p>
+                        <ul class="feature-list">
+                            <li>Log collection & analysis</li>
+                            <li>Anomaly detection</li>
+                            <li>Real-time alerts</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-satellite-dish"></i>
+                        </div>
+                        <h3>Broadcast System Integration</h3>
+                        <p>Seamless integration with on-air broadcast servers and streaming infrastructure.</p>
+                        <ul class="feature-list">
+                            <li>System status monitoring</li>
+                            <li>Signal integrity checks</li>
+                            <li>Automated failover</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                        <h3>Incident Response</h3>
+                        <p>Structured workflows for handling cybersecurity incidents with reporting.</p>
+                        <ul class="feature-list">
+                            <li>Incident tracking</li>
+                            <li>Response procedures</li>
+                            <li>Audit trails</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="about">
+                <h2 class="section-title">About This Project</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>This system was developed based on the field trip report to Starr FM (EIB Network) as part of the BSc Computer Science (Cyber Security Option) program at Ghana Communication Technology University.</p>
+                        
+                        <h3>Key Objectives:</h3>
+                        <ul>
+                            <li>Address vulnerabilities identified in Starr FM's IT/OT environment</li>
+                            <li>Implement a Secure SDLC (System Development Lifecycle) approach</li>
+                            <li>Provide protection against ransomware, signal hijacking, and data breaches</li>
+                            <li>Ensure 24/7 availability for broadcast operations</li>
+                            <li>Comply with ISO 27001 and NIST cybersecurity frameworks</li>
+                        </ul>
+                        
+                        <div class="tech-stack">
+                            <h3>Technology Stack:</h3>
+                            <div class="tech-icons">
+                                <span class="tech-item"><i class="fab fa-html5"></i> HTML5</span>
+                                <span class="tech-item"><i class="fab fa-css3-alt"></i> CSS3</span>
+                                <span class="tech-item"><i class="fab fa-js"></i> JavaScript</span>
+                                <span class="tech-item"><i class="fas fa-database"></i> SQL</span>
+                                <span class="tech-item"><i class="fab fa-python"></i> Python</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        <div class="report-card">
+                            <div class="report-header">
+                                <h4><i class="fas fa-file-alt"></i> Field Trip Report</h4>
+                                <span class="report-badge">STARR FM</span>
+                            </div>
+                            <div class="report-body">
+                                <p><strong>Student:</strong> Aidoo Dickson</p>
+                                <p><strong>ID:</strong> 1695147867</p>
+                                <p><strong>Lecturer:</strong> Dr. Martin Mabeifam Ujakpa</p>
+                                <p><strong>University:</strong> Ghana Communication Technology University</p>
+                                <p><strong>Date:</strong> January 2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contact" class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>SBCMS</h3>
+                    </div>
+                    <p>Secure Broadcast Cybersecurity Management System developed for Starr FM (EIB Network) based on academic field trip analysis.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#about">About</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-university"></i> Ghana Communication Technology University</li>
+                        <li><i class="fas fa-user-graduate"></i> Aidoo Dickson - 1695147867</li>
+                        <li><i class="fas fa-chalkboard-teacher"></i> Dr. Martin Mabeifam Ujakpa</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 Secure Broadcast Cybersecurity Management System. Developed for academic purposes.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const nav = document.querySelector('.main-nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.main-nav').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const authData = localStorage.getItem('sbcms_auth_data');
+            if (authData) {
+                try {
+                    const data = JSON.parse(authData);
+                    const now = new Date().getTime();
+                    
+                    if (data.expiry && now < data.expiry) {
+                        // Update login/signup buttons
+                        const loginBtn = document.querySelector('.main-nav a[href="login.html"]');
+                        const signupBtn = document.querySelector('.main-nav a[href="signup.html"]');
+                        
+                        if (loginBtn) {
+                            loginBtn.textContent = 'Dashboard';
+                            loginBtn.href = 'dashboard.html';
+                        }
+                        
+                        if (signupBtn) {
+                            signupBtn.style.display = 'none';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error checking session:', error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

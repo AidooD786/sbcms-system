@@ -1,0 +1,681 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broadcast Systems | SBCMS - Starr FM</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation (Same as dashboard) -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="dashboard-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h2>SBCMS</h2>
+                </div>
+                <p class="dashboard-subtitle">Starr FM Cybersecurity</p>
+            </div>
+
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-circle"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="userName">Administrator</h3>
+                    <p class="user-role" id="userRole">System Administrator</p>
+                    <p class="user-status">
+                        <span class="status-indicator active"></span>
+                        Online
+                    </p>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item">
+                        <a href="dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a href="broadcast.html">
+                            <i class="fas fa-broadcast-tower"></i>
+                            <span>Broadcast Systems</span>
+                            <span class="nav-badge" id="broadcastStatus">All Online</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="alerts.html">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Security Alerts</span>
+                            <span class="nav-badge alert" id="alertCount">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="threats.html">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Threat Intelligence</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="incidents.html">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Incident Reports</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="users.html">
+                            <i class="fas fa-users-cog"></i>
+                            <span>User Management</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html">
+                            <i class="fas fa-cogs"></i>
+                            <span>System Settings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="backup.html">
+                            <i class="fas fa-database"></i>
+                            <span>Backup & Recovery</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <h4><i class="fas fa-server"></i> System Status</h4>
+                    <div class="status-item">
+                        <span>Uptime:</span>
+                        <span class="status-value" id="systemUptime">99.8%</span>
+                    </div>
+                    <div class="status-item">
+                        <span>Last Incident:</span>
+                        <span class="status-value" id="lastIncident">2 days ago</span>
+                    </div>
+                </div>
+                <a href="index.html" class="btn btn-secondary btn-block" id="logoutBtn">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="header-left">
+                    <h1>Broadcast Systems Management</h1>
+                    <p class="header-subtitle">Monitor and manage broadcast infrastructure for Starr FM</p>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="btn btn-outline" id="refreshBroadcastBtn">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="btn btn-primary" id="addSystemBtn">
+                            <i class="fas fa-plus"></i> Add System
+                        </button>
+                        <button class="btn btn-secondary" id="restartAllBtn">
+                            <i class="fas fa-redo"></i> Restart All
+                        </button>
+                    </div>
+                    <div class="datetime-widget">
+                        <i class="fas fa-clock"></i>
+                        <span id="currentDateTime">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- System Status Overview -->
+            <section class="dashboard-section">
+                <h2 class="section-title">
+                    <i class="fas fa-clipboard-check"></i> System Status Overview
+                </h2>
+                
+                <div class="status-cards">
+                    <div class="status-card secure">
+                        <div class="status-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Broadcast Servers</h3>
+                            <p class="status-value">2/2 Operational</p>
+                            <p class="status-detail">All systems online</p>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card secure">
+                        <div class="status-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Streaming Servers</h3>
+                            <p class="status-value">3/3 Operational</p>
+                            <p class="status-detail">1,250 active streams</p>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card warning">
+                        <div class="status-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Storage Systems</h3>
+                            <p class="status-value">1 Warning</p>
+                            <p class="status-detail">Disk at 85% capacity</p>
+                        </div>
+                    </div>
+                    
+                    <div class="status-card secure">
+                        <div class="status-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <div class="status-content">
+                            <h3>Network Infrastructure</h3>
+                            <p class="status-value">All Operational</p>
+                            <p class="status-detail">No issues detected</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Broadcast Systems Monitoring -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-broadcast-tower"></i> Active Broadcast Systems
+                    </h2>
+                    <div class="section-actions">
+                        <div class="view-toggle">
+                            <button class="btn btn-small active"><i class="fas fa-th"></i> Grid</button>
+                            <button class="btn btn-small btn-outline"><i class="fas fa-list"></i> List</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="systems-grid">
+                    <div class="system-card">
+                        <div class="system-header">
+                            <h3>On-Air Broadcast Server 1</h3>
+                            <span class="system-status online">Online</span>
+                        </div>
+                        <div class="system-info">
+                            <p><i class="fas fa-server"></i> Server ID: BCS-001</p>
+                            <p><i class="fas fa-microphone"></i> Active Channels: 5</p>
+                            <p><i class="fas fa-chart-line"></i> CPU: 42% | Memory: 68%</p>
+                            <p><i class="fas fa-clock"></i> Uptime: 15 days, 4 hours</p>
+                            <p><i class="fas fa-shield-alt"></i> Security Status: Protected</p>
+                        </div>
+                        <div class="system-actions">
+                            <button class="btn btn-small" onclick="viewSystemDetails('BCS-001')">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="restartSystem('BCS-001')">
+                                <i class="fas fa-redo"></i> Restart
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="viewSystemLogs('BCS-001')">
+                                <i class="fas fa-file-alt"></i> Logs
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-header">
+                            <h3>Streaming Server Cluster</h3>
+                            <span class="system-status online">Online</span>
+                        </div>
+                        <div class="system-info">
+                            <p><i class="fas fa-server"></i> Server ID: STR-001</p>
+                            <p><i class="fas fa-wifi"></i> Active Streams: 1,250</p>
+                            <p><i class="fas fa-chart-line"></i> CPU: 38% | Memory: 54%</p>
+                            <p><i class="fas fa-clock"></i> Uptime: 10 days, 2 hours</p>
+                            <p><i class="fas fa-shield-alt"></i> Security Status: Protected</p>
+                        </div>
+                        <div class="system-actions">
+                            <button class="btn btn-small" onclick="viewSystemDetails('STR-001')">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="restartSystem('STR-001')">
+                                <i class="fas fa-redo"></i> Restart
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="viewSystemLogs('STR-001')">
+                                <i class="fas fa-file-alt"></i> Logs
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-header">
+                            <h3>Digital Newsroom System</h3>
+                            <span class="system-status online">Online</span>
+                        </div>
+                        <div class="system-info">
+                            <p><i class="fas fa-server"></i> Server ID: NWS-001</p>
+                            <p><i class="fas fa-users"></i> Active Users: 8</p>
+                            <p><i class="fas fa-chart-line"></i> CPU: 28% | Memory: 45%</p>
+                            <p><i class="fas fa-clock"></i> Uptime: 20 days, 8 hours</p>
+                            <p><i class="fas fa-shield-alt"></i> Security Status: Protected</p>
+                        </div>
+                        <div class="system-actions">
+                            <button class="btn btn-small" onclick="viewSystemDetails('NWS-001')">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="restartSystem('NWS-001')">
+                                <i class="fas fa-redo"></i> Restart
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="viewSystemLogs('NWS-001')">
+                                <i class="fas fa-file-alt"></i> Logs
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card">
+                        <div class="system-header">
+                            <h3>Media Storage Server</h3>
+                            <span class="system-status warning">Warning</span>
+                        </div>
+                        <div class="system-info">
+                            <p><i class="fas fa-server"></i> Server ID: STR-002</p>
+                            <p><i class="fas fa-hdd"></i> Disk Usage: 85%</p>
+                            <p><i class="fas fa-chart-line"></i> CPU: 22% | Memory: 41%</p>
+                            <p><i class="fas fa-clock"></i> Uptime: 25 days, 12 hours</p>
+                            <p><i class="fas fa-shield-alt"></i> Security Status: Protected</p>
+                        </div>
+                        <div class="system-actions">
+                            <button class="btn btn-small" onclick="viewSystemDetails('STR-002')">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
+                            <button class="btn btn-small btn-outline warning" onclick="cleanupStorage('STR-002')">
+                                <i class="fas fa-broom"></i> Cleanup
+                            </button>
+                            <button class="btn btn-small btn-outline" onclick="viewSystemLogs('STR-002')">
+                                <i class="fas fa-file-alt"></i> Logs
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- System Performance Charts -->
+            <section class="dashboard-section">
+                <h2 class="section-title">
+                    <i class="fas fa-chart-line"></i> System Performance (Last 24 Hours)
+                </h2>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <canvas id="cpuUsageChart"></canvas>
+                        <p class="chart-label">CPU Usage (%)</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="memoryUsageChart"></canvas>
+                        <p class="chart-label">Memory Usage (%)</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="networkTrafficChart"></canvas>
+                        <p class="chart-label">Network Traffic (Mbps)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recent System Events -->
+            <section class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-history"></i> Recent System Events
+                    </h2>
+                    <button class="btn btn-small btn-outline" onclick="viewAllEvents()">
+                        View All Events <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+                
+                <div class="events-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>System</th>
+                                <th>Event Type</th>
+                                <th>Description</th>
+                                <th>Severity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10:30 AM</td>
+                                <td>BCS-001</td>
+                                <td>Maintenance</td>
+                                <td>Routine maintenance completed</td>
+                                <td><span class="severity-low">Info</span></td>
+                            </tr>
+                            <tr>
+                                <td>09:15 AM</td>
+                                <td>STR-002</td>
+                                <td>Storage</td>
+                                <td>Disk usage reached 85% threshold</td>
+                                <td><span class="severity-medium">Warning</span></td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 11:45 PM</td>
+                                <td>NWS-001</td>
+                                <td>Backup</td>
+                                <td>Automatic backup completed successfully</td>
+                                <td><span class="severity-low">Info</span></td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 08:30 PM</td>
+                                <td>STR-001</td>
+                                <td>Security</td>
+                                <td>Security patch applied</td>
+                                <td><span class="severity-low">Info</span></td>
+                            </tr>
+                            <tr>
+                                <td>Yesterday, 03:15 PM</td>
+                                <td>BCS-001</td>
+                                <td>Performance</td>
+                                <td>High CPU usage detected and resolved</td>
+                                <td><span class="severity-medium">Warning</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="dashboard-footer">
+                <div class="footer-info">
+                    <p><i class="fas fa-info-circle"></i> Broadcast Systems Management v1.2.1</p>
+                    <p><i class="fas fa-clock"></i> Last system scan: 10 minutes ago</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" onclick="runSystemDiagnostics()"><i class="fas fa-stethoscope"></i> Run Diagnostics</a>
+                    <a href="#" onclick="generateSystemReport()"><i class="fas fa-file-alt"></i> Generate Report</a>
+                    <a href="#" onclick="exportSystemData()"><i class="fas fa-download"></i> Export Data</a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Include Chart.js for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize page-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update user info
+            const userData = localStorage.getItem('sbcms_user_data');
+            if (userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userRole').textContent = user.role;
+            }
+            
+            // Update datetime
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            
+            // Initialize charts
+            initBroadcastCharts();
+            
+            // Setup event listeners
+            setupBroadcastEvents();
+        });
+        
+        function updateDateTime() {
+            const now = new Date();
+            const dateTimeElement = document.getElementById('currentDateTime');
+            if (dateTimeElement) {
+                const options = { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                };
+                dateTimeElement.textContent = now.toLocaleDateString('en-US', options);
+            }
+        }
+        
+        function initBroadcastCharts() {
+            // CPU Usage Chart
+            const cpuCtx = document.getElementById('cpuUsageChart').getContext('2d');
+            new Chart(cpuCtx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                    datasets: [{
+                        label: 'CPU Usage',
+                        data: [25, 30, 45, 65, 42, 38, 28],
+                        borderColor: '#2a5bd7',
+                        backgroundColor: 'rgba(42, 91, 215, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Percentage' }
+                        }
+                    }
+                }
+            });
+            
+            // Memory Usage Chart
+            const memoryCtx = document.getElementById('memoryUsageChart').getContext('2d');
+            new Chart(memoryCtx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                    datasets: [{
+                        label: 'Memory Usage',
+                        data: [45, 48, 52, 68, 58, 50, 46],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: { display: true, text: 'Percentage' }
+                        }
+                    }
+                }
+            });
+            
+            // Network Traffic Chart
+            const networkCtx = document.getElementById('networkTrafficChart').getContext('2d');
+            new Chart(networkCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '24:00'],
+                    datasets: [{
+                        label: 'Network Traffic',
+                        data: [120, 85, 210, 450, 380, 520, 180],
+                        backgroundColor: '#17a2b8',
+                        borderColor: '#17a2b8',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Mbps' }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function setupBroadcastEvents() {
+            // Refresh button
+            const refreshBtn = document.getElementById('refreshBroadcastBtn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        this.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
+                        this.disabled = false;
+                        showNotification('Broadcast systems data refreshed', 'success');
+                    }, 1500);
+                });
+            }
+            
+            // Add System button
+            const addSystemBtn = document.getElementById('addSystemBtn');
+            if (addSystemBtn) {
+                addSystemBtn.addEventListener('click', function() {
+                    showNotification('Add System functionality would open here', 'info');
+                });
+            }
+            
+            // Restart All button
+            const restartAllBtn = document.getElementById('restartAllBtn');
+            if (restartAllBtn) {
+                restartAllBtn.addEventListener('click', function() {
+                    if (confirm('Are you sure you want to restart all broadcast systems? This may cause temporary service interruption.')) {
+                        showNotification('Restarting all broadcast systems...', 'warning');
+                        
+                        setTimeout(() => {
+                            showNotification('All systems restarted successfully', 'success');
+                        }, 3000);
+                    }
+                });
+            }
+        }
+        
+        // System functions
+        function viewSystemDetails(systemId) {
+            showNotification(`Viewing details for ${systemId}`, 'info');
+        }
+        
+        function restartSystem(systemId) {
+            if (confirm(`Are you sure you want to restart ${systemId}?`)) {
+                showNotification(`Restarting ${systemId}...`, 'warning');
+                
+                setTimeout(() => {
+                    showNotification(`${systemId} restarted successfully`, 'success');
+                }, 2000);
+            }
+        }
+        
+        function viewSystemLogs(systemId) {
+            showNotification(`Opening logs for ${systemId}`, 'info');
+        }
+        
+        function cleanupStorage(systemId) {
+            if (confirm(`Clean up storage for ${systemId}? This will remove temporary files.`)) {
+                showNotification(`Cleaning up storage for ${systemId}...`, 'info');
+                
+                setTimeout(() => {
+                    showNotification(`Storage cleanup completed for ${systemId}`, 'success');
+                }, 2500);
+            }
+        }
+        
+        function viewAllEvents() {
+            showNotification('Opening all system events log', 'info');
+        }
+        
+        function runSystemDiagnostics() {
+            showNotification('Running system diagnostics...', 'info');
+            
+            setTimeout(() => {
+                showNotification('Diagnostics complete. No issues found.', 'success');
+            }, 3000);
+        }
+        
+        function generateSystemReport() {
+            showNotification('Generating system report...', 'info');
+            
+            setTimeout(() => {
+                showNotification('System report generated successfully', 'success');
+            }, 2000);
+        }
+        
+        function exportSystemData() {
+            showNotification('Exporting system data...', 'info');
+            
+            setTimeout(() => {
+                showNotification('System data exported successfully', 'success');
+            }, 1500);
+        }
+        
+        // Notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            
+            let icon = 'info-circle';
+            if (type === 'success') icon = 'check-circle';
+            if (type === 'error') icon = 'exclamation-circle';
+            if (type === 'warning') icon = 'exclamation-triangle';
+            
+            notification.innerHTML = `
+                <i class="fas fa-${icon}"></i>
+                <span>${message}</span>
+                <button class="notification-close"><i class="fas fa-times"></i></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 5000);
+            
+            // Close button
+            const closeBtn = notification.querySelector('.notification-close');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
